@@ -4,7 +4,7 @@ import styles from './Date.module.css';
 export default function Date() {
   return (
     <div className={styles.wrapper}>
-      20.00 20 jun 2020
+      20.00 Sat 20 June
     </div>
   );
 }

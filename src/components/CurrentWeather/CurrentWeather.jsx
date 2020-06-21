@@ -7,6 +7,12 @@ export default function CurrentWeather() {
       <div className={styles.temperature}>
         20°
       </div>
+      <div className={styles.icon}>
+        icon
+      </div>
+      <div className={styles.summary}>
+        Rain
+      </div>
       <div className={styles.humidity}>
         50%
       </div>
