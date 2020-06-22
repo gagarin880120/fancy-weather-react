@@ -4,7 +4,7 @@
   "main": "index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src/**/*.jsx",
+    "lint": "eslint src/**/*.js src/**/*.jsx",
     "start": "webpack-dev-server --open",
     "build": "webpack --config webpack.config.js"
   },
