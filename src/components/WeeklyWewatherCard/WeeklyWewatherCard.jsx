@@ -8,5 +8,5 @@ export default function WeeklyWewatherCard() {
       <div className={styles.temperature}>24</div>
       <span className={styles.icon}>icon</span>
     </div>
-  )
+  );
 }
