@@ -253,6 +253,6 @@ const countries = {
   ZW: { en: 'Zimbabwe', ru: 'Зимбабве' },
 };
 
-export default function convertFromISOCode(code, lang) {
+export default function convertCodeToCountryName(code, lang) {
   return countries[code][lang];
 }

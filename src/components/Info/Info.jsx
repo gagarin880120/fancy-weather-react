@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from './Info.module.css';
-import Place from '../Place/Place';
+import AddressContainer from '../Address';
 import Date from '../Date/Date';
-import CurrentWeather from '../CurrentWeather/CurrentWeather';
+import CurrentWeatherContainer from '../CurrentWeather';
 import WeeklyWeather from '../WeeklyWeather/WeeklyWeather';
 
 export default function Info() {
   return (
     <div className={styles.wrapper}>
-      <Place />
+      <AddressContainer />
       <Date />
-      <CurrentWeather />
+      <CurrentWeatherContainer />
       <WeeklyWeather />
     </div>
   );

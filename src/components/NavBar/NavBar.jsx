@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './NavBar.module.css';
 import TemperatureScaleButton from '../TemperatureScaleButton/TemperatureScaleButton';
-import LanguageSelect from '../LanguageSelect/LanguageSelect';
+import LanguageSelectContainer from '../LanguageSelect';
 import SearchField from '../SearchField/SearchField';
 
 export default function NavBar() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <LanguageSelect />
+        <LanguageSelectContainer />
         <div className={styles.scaleButtons}>
           <TemperatureScaleButton
             scale="celsius"

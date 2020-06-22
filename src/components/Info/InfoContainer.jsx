@@ -2,44 +2,30 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Info from './Info';
-import { selectPlace, selectCurrentWeather } from '../../redux/selectors';
-import { getDefaultPlace } from '../../redux/actions';
+import { getDefaultAddress } from '../../redux/actions';
 
-export function InfoContainer({ place, currentWeather, getPlaceByIP }) {
-  console.log('hi', place);
-
+export function InfoContainer({ getAddressByIP }) {
   useEffect(() => {
-    getPlaceByIP();
+    getAddressByIP();
   }, []);
+
   return (
-    <Info
-      place={place}
-      currentWeather={currentWeather}
-    />
+    <Info />
   );
 }
 
-export const mapStateToProps = (state) => ({
-  place: selectPlace(state),
-  currentWeather: selectCurrentWeather(state),
-});
-
 export const mapDispatchToProps = (dispatch) => ({
-  getPlaceByIP() {
-    dispatch(getDefaultPlace());
+  getAddressByIP() {
+    dispatch(getDefaultAddress());
   },
 });
 
 InfoContainer.propTypes = {
-  place: PropTypes.string,
-  currentWeather: PropTypes.shape({}),
-  getPlaceByIP: PropTypes.func,
+  getAddressByIP: PropTypes.func,
 };
 
 InfoContainer.defaultProps = {
-  place: '',
-  currentWeather: {},
-  getPlaceByIP: () => {},
+  getAddressByIP: () => {},
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoContainer);
+export default connect(null, mapDispatchToProps)(InfoContainer);
