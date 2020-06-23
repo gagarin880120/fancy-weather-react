@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './CurrentDate.module.css';
 import PropTypes from 'prop-types';
+import styles from './CurrentDate.module.css';
 
 export default function CurrentDate({ currentDate }) {
   return (

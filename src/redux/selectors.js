@@ -1,4 +1,4 @@
-import convertKmphToMs from '../helpers/helpers';
+import convertCodeToName from '../utils/openweatherCodes';
 
 const selectLanguage = (state) => state.language;
 const selectAddress = (state) => state.address;
@@ -6,9 +6,24 @@ const selectAddress = (state) => state.address;
 const selectCurrentDate = (state) => {
   if (state.currentDate) {
     const options = {
-      weekday: 'short', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', second: 'numeric'
+      weekday: 'short', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', second: 'numeric',
     };
     return new Date(state.currentDate).toLocaleDateString('en-GB', options);
+  }
+  return null;
+};
+
+const selectWeeklyWeather = (state) => {
+  if (state.weeklyWeather) {
+    return state.weeklyWeather.map((v) => ({
+      ...v,
+      wind_spd: Math.round(v.wind_spd),
+      temp: Math.round(v.temp),
+      weekday: new Date(v.datetime).toLocaleDateString('en-GB', { weekday: 'long' }),
+      icon: convertCodeToName(
+        v.weather.icon.slice(-1) + v.weather.code,
+      ),
+    }));
   }
   return null;
 };
@@ -17,11 +32,11 @@ const selectCurrentWeather = (state) => {
   if (state.currentWeather) {
     return {
       ...state.currentWeather,
-      wind_ms: Math.round(convertKmphToMs(state.currentWeather.wind_kph)),
-      condition: {
-        ...state.currentWeather.condition,
-        icon: state.currentWeather.condition.icon.replace('64x64', '128x128'),
-      },
+      wind_spd: Math.round(state.currentWeather.wind_spd),
+      temp: Math.round(state.currentWeather.temp),
+      icon: convertCodeToName(
+        state.currentWeather.weather.icon.slice(-1) + state.currentWeather.weather.code,
+      ),
     };
   }
   return null;
@@ -32,5 +47,5 @@ const selectLongitude = (state) => state.longitude;
 
 export {
   selectAddress, selectCurrentWeather, selectLanguage, selectLatitude, selectLongitude,
-  selectCurrentDate,
+  selectCurrentDate, selectWeeklyWeather,
 };

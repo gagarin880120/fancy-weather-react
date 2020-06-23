@@ -9,6 +9,7 @@ const initialState = {
   currentDate: '',
   currentDateInterval: null,
   currentWeather: null,
+  weeklyWeather: null,
 };
 
 export function reducer(state = initialState, action) {
@@ -25,6 +26,8 @@ export function reducer(state = initialState, action) {
       return { ...state, currentDateInterval: action.currentDateInterval };
     case 'CURRENT_WEATHER':
       return { ...state, currentWeather: action.weatherObj };
+    case 'WEEKLY_WEATHER':
+      return { ...state, weeklyWeather: action.weeklyWeatherArr };
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import styles from './Info.module.css';
 import AddressContainer from '../Address';
 import CurrentDateContainer from '../CurrentDate';
 import CurrentWeatherContainer from '../CurrentWeather';
-import WeeklyWeather from '../WeeklyWeather/WeeklyWeather';
+import WeeklyWeatherContainer from '../WeeklyWeather';
 
 export default function Info() {
   return (
@@ -11,7 +11,7 @@ export default function Info() {
       <AddressContainer />
       <CurrentDateContainer />
       <CurrentWeatherContainer />
-      <WeeklyWeather />
+      <WeeklyWeatherContainer />
     </div>
   );
 }

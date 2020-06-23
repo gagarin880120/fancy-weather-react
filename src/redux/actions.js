@@ -1,12 +1,5 @@
 import convertCodeToCountryName from '../utils/country-codes';
 
-function setAddress(address) {
-  return {
-    type: 'ADDRESS',
-    address,
-  };
-}
-
 function setLanguage(language) {
   return {
     type: 'LANGUAGE',
@@ -14,10 +7,10 @@ function setLanguage(language) {
   };
 }
 
-function setCurrentWeather(weatherObj) {
+function setAddress(address) {
   return {
-    type: 'CURRENT_WEATHER',
-    weatherObj,
+    type: 'ADDRESS',
+    address,
   };
 }
 
@@ -32,14 +25,28 @@ function setLocation(latitude, longitude) {
 function setCurrentDate(currentDate) {
   return {
     type: 'CURRENT_DATE',
-    currentDate
+    currentDate,
   };
 }
 
 function setCurrentDateInterval(currentDateInterval) {
   return {
     type: 'CURRENT_DATE_INTERVAL',
-    currentDateInterval
+    currentDateInterval,
+  };
+}
+
+function setCurrentWeather(weatherObj) {
+  return {
+    type: 'CURRENT_WEATHER',
+    weatherObj,
+  };
+}
+
+function setWeeklyWeather(weeklyWeatherArr) {
+  return {
+    type: 'WEEKLY_WEATHER',
+    weeklyWeatherArr,
   };
 }
 
@@ -49,17 +56,18 @@ function getCurrentDate(lat, lng) {
   + `&format=json&by=position&lat=${lat}&lng=${lng}`)
     .then((res) => res.json())
     .then((data) => {
-      dispatch(setCurrentDate(data.formatted))
+      dispatch(setCurrentDate(data.formatted));
     })
     .catch((e) => console.log(e));
 }
 
-function getCurrentWeather(loc) {
-  const API_KEY = '4f572074b9284bfd9c881454202106';
-  return (dispatch) => fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${loc}`)
+function getWeather(lat, lon) {
+  const API_KEY = 'cf236ef1f2e94b658f9c745520d1fe1a';
+  return (dispatch) => fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&days=8&lang=en&key=${API_KEY}`)
     .then((res) => res.json())
     .then((data) => {
-      dispatch(setCurrentWeather(data.current));
+      dispatch(setCurrentWeather(data.data[0]));
+      dispatch(setWeeklyWeather(data.data.slice(1)));
     })
     .catch((e) => console.log(e));
 }
@@ -73,8 +81,8 @@ function getDefaultAddress() {
       const lat = data.loc.split(',')[0];
       const lon = data.loc.split(',')[1];
       dispatch(setLocation(lat, lon));
-      dispatch(getCurrentWeather(data.loc));
-      dispatch(setCurrentDateInterval(setInterval(() => dispatch(getCurrentDate(lat, lon)), 1000)))
+      dispatch(getWeather(lat, lon));
+      dispatch(setCurrentDateInterval(setInterval(() => dispatch(getCurrentDate(lat, lon)), 1000)));
     })
     .catch((e) => console.log(e));
 }
