@@ -29,7 +29,32 @@ function setLocation(latitude, longitude) {
   };
 }
 
-function getWeather(loc) {
+function setCurrentDate(currentDate) {
+  return {
+    type: 'CURRENT_DATE',
+    currentDate
+  };
+}
+
+function setCurrentDateInterval(currentDateInterval) {
+  return {
+    type: 'CURRENT_DATE_INTERVAL',
+    currentDateInterval
+  };
+}
+
+function getCurrentDate(lat, lng) {
+  const API_KEY = 'ST1WDEJRNQDM';
+  return (dispatch) => fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}`
+  + `&format=json&by=position&lat=${lat}&lng=${lng}`)
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch(setCurrentDate(data.formatted))
+    })
+    .catch((e) => console.log(e));
+}
+
+function getCurrentWeather(loc) {
   const API_KEY = '4f572074b9284bfd9c881454202106';
   return (dispatch) => fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${loc}`)
     .then((res) => res.json())
@@ -45,12 +70,15 @@ function getDefaultAddress() {
     .then((res) => res.json())
     .then((data) => {
       dispatch(setAddress(`${data.city}, ${convertCodeToCountryName(data.country, 'en')}`));
-      dispatch(setLocation(data.loc.split(',')[0], data.loc.split(',')[1]));
-      dispatch(getWeather(data.loc));
+      const lat = data.loc.split(',')[0];
+      const lon = data.loc.split(',')[1];
+      dispatch(setLocation(lat, lon));
+      dispatch(getCurrentWeather(data.loc));
+      dispatch(setCurrentDateInterval(setInterval(() => dispatch(getCurrentDate(lat, lon)), 1000)))
     })
     .catch((e) => console.log(e));
 }
 
 export {
-  setAddress, setCurrentWeather, getDefaultAddress, setLanguage, getWeather,
+  setAddress, setCurrentWeather, getDefaultAddress, setLanguage,
 };

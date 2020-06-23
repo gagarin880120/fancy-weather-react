@@ -37,5 +37,13 @@ CurrentWeather.propTypes = {
 };
 
 CurrentWeather.defaultProps = {
-  currentWeather: {},
+  currentWeather: {
+    temp_c: 0,
+    humidity: 0,
+    wind_ms: 0,
+    condition: {
+      text: '',
+      icon: '',
+    },
+  },
 };

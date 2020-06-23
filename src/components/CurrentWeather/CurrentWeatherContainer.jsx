@@ -5,9 +5,9 @@ import CurrentWeather from './CurrentWeather';
 import { selectCurrentWeather } from '../../redux/selectors';
 
 export function CurrentWeatherContainer({ currentWeather }) {
-  console.log(currentWeather);
+  // console.log(currentWeather);
   return (
-    Object.keys(currentWeather).length
+    currentWeather
       ? (
         <CurrentWeather
           currentWeather={currentWeather}
