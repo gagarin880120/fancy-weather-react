@@ -10,7 +10,7 @@ export default function CurrentWeather({ currentWeather }) {
       <div className={styles.temperature}>
         {currentWeather.temp}
       </div>
-      <Icon color="#000" size={256} />
+      <Icon color="#fff" size={256} />
       <div className={styles.summary}>
         {currentWeather.weather.description}
       </div>

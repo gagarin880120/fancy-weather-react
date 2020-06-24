@@ -1,0 +1,13 @@
+@font-face {
+  font-family: Nunito;
+  src: url('../../assets/fonts/Nunito-Regular.ttf');
+}
+
+.wrapper {
+  color: #fff;
+  padding: 0 5%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  font-family: Nunito;
+}

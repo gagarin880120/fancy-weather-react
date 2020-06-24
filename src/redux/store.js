@@ -10,6 +10,7 @@ const initialState = {
   currentDateInterval: null,
   currentWeather: null,
   weeklyWeather: null,
+  backgroundImageURL: '',
 };
 
 export function reducer(state = initialState, action) {
@@ -28,6 +29,8 @@ export function reducer(state = initialState, action) {
       return { ...state, currentWeather: action.weatherObj };
     case 'WEEKLY_WEATHER':
       return { ...state, weeklyWeather: action.weeklyWeatherArr };
+    case 'BACKGROUND_IMAGE_URL':
+      return { ...state, backgroundImageURL: action.imageURL };
     default:
       return state;
   }
