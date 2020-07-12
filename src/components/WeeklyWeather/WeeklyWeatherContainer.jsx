@@ -5,7 +5,7 @@ import WeeklyWeather from './WeeklyWeather';
 import { selectWeeklyWeather } from '../../redux/selectors';
 
 export function WeeklyWeatherContainer({ weeklyWeather }) {
-  console.log(weeklyWeather);
+  // console.log(weeklyWeather);
   return (
     weeklyWeather
       ? (

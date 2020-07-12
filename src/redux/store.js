@@ -3,14 +3,15 @@ import thunk from 'redux-thunk';
 
 const initialState = {
   language: 'en',
-  latitude: '',
-  longitude: '',
+  latitude: 0,
+  longitude: 0,
   address: '',
   currentDate: '',
   currentDateInterval: null,
   currentWeather: null,
   weeklyWeather: null,
   backgroundImageURL: '',
+  countryFlagURL: '',
 };
 
 export function reducer(state = initialState, action) {
@@ -31,6 +32,8 @@ export function reducer(state = initialState, action) {
       return { ...state, weeklyWeather: action.weeklyWeatherArr };
     case 'BACKGROUND_IMAGE_URL':
       return { ...state, backgroundImageURL: action.imageURL };
+    case 'COUNTRY_FLAG_URL':
+      return { ...state, countryFlagURL: action.countryFlagURL };
     default:
       return state;
   }

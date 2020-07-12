@@ -6,7 +6,7 @@ const selectAddress = (state) => state.address;
 const selectCurrentDate = (state) => {
   if (state.currentDate) {
     const options = {
-      weekday: 'short', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', second: 'numeric',
+      weekday: 'short', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric',
     };
     return new Date(state.currentDate).toLocaleDateString('en-GB', options);
   }
@@ -45,8 +45,11 @@ const selectCurrentWeather = (state) => {
 const selectLatitude = (state) => state.latitude;
 const selectLongitude = (state) => state.longitude;
 const selectBackgroundImageURL = (state) => state.backgroundImageURL;
+const selectCurrentDateInterval = (state) => state.currentDateInterval;
+const selectCountryFlagURL = (state) => state.countryFlagURL;
 
 export {
   selectAddress, selectCurrentWeather, selectLanguage, selectLatitude, selectLongitude,
-  selectCurrentDate, selectWeeklyWeather, selectBackgroundImageURL,
+  selectCurrentDate, selectWeeklyWeather, selectBackgroundImageURL, selectCurrentDateInterval,
+  selectCountryFlagURL,
 };
