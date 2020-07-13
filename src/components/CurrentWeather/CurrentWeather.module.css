@@ -1,3 +1,5 @@
-.icon {
-
+.temperature {
+  display: flex;
+  font-size: 168px;
+  font-weight: bold;
 }
