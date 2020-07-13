@@ -12,6 +12,10 @@ const initialState = {
   weeklyWeather: null,
   backgroundImageURL: '',
   countryFlagURL: '',
+  temperatureScale: 'celsius',
+  query: '',
+  mapZoom: '8',
+  isModalOpen: false,
 };
 
 export function reducer(state = initialState, action) {
@@ -34,6 +38,14 @@ export function reducer(state = initialState, action) {
       return { ...state, backgroundImageURL: action.imageURL };
     case 'COUNTRY_FLAG_URL':
       return { ...state, countryFlagURL: action.countryFlagURL };
+    case 'TEMPERATURE_SCALE':
+      return { ...state, temperatureScale: action.temperatureScale };
+    case 'QUERY':
+      return { ...state, query: action.query };
+    case 'MAP_ZOOM':
+      return { ...state, mapZoom: action.mapZoom };
+    case 'IS_MODAL_OPEN':
+      return { ...state, isModalOpen: action.isModalOpen };
     default:
       return state;
   }
