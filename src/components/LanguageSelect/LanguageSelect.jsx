@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './LanguageSelect.module.css';
 
-export default function LanguageSelect({ onLanguageChange }) {
+export default function LanguageSelect({ onLanguageChange, query }) {
   return (
     <select
       name="language"
       className={styles.select}
-      onChange={(e) => onLanguageChange(e.target.value)}
+      onChange={(e) => onLanguageChange(e.target.value, query)}
     >
-      <option value="en" defaultValue>en</option>
+      <option value="en">en</option>
       <option value="ru">ru</option>
     </select>
   );
@@ -17,8 +17,10 @@ export default function LanguageSelect({ onLanguageChange }) {
 
 LanguageSelect.propTypes = {
   onLanguageChange: PropTypes.func,
+  query: PropTypes.string,
 };
 
 LanguageSelect.defaultProps = {
   onLanguageChange: () => {},
+  query: '',
 };
