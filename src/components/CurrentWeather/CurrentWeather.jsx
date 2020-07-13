@@ -9,16 +9,16 @@ export default function CurrentWeather({ currentWeather }) {
     <div className={styles.wrapper}>
       <div className={styles.temperature}>
         {currentWeather.temp}
+        <Icon color="#fff" size={200} />
       </div>
-      <Icon color="#fff" size={256} />
       <div className={styles.summary}>
         {currentWeather.weather.description}
       </div>
       <div className={styles.humidity}>
-        {`${currentWeather.rh}%`}
+        {currentWeather.rh}
       </div>
       <div className={styles.wind}>
-        {`${currentWeather.wind_spd} m/s`}
+        {currentWeather.wind_spd}
       </div>
     </div>
   );
@@ -27,8 +27,8 @@ export default function CurrentWeather({ currentWeather }) {
 CurrentWeather.propTypes = {
   currentWeather: PropTypes.shape({
     temp: PropTypes.number,
-    rh: PropTypes.number,
-    wind_spd: PropTypes.number,
+    rh: PropTypes.string,
+    wind_spd: PropTypes.string,
     icon: PropTypes.string,
     weather: PropTypes.shape({
       description: PropTypes.string,
@@ -39,8 +39,8 @@ CurrentWeather.propTypes = {
 CurrentWeather.defaultProps = {
   currentWeather: {
     temp: 0,
-    rh: 0,
-    wind_spd: 0,
+    rh: '',
+    wind_spd: '',
     icon: '',
     weather: {
       description: '',

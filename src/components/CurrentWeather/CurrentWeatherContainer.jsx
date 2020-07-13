@@ -5,14 +5,10 @@ import CurrentWeather from './CurrentWeather';
 import { selectCurrentWeather } from '../../redux/selectors';
 
 export function CurrentWeatherContainer({ currentWeather }) {
-  // console.log(currentWeather);
   return (
-    currentWeather
-      ? (
-        <CurrentWeather
-          currentWeather={currentWeather}
-        />
-      ) : <div>Loading...</div>
+    <CurrentWeather
+      currentWeather={currentWeather}
+    />
   );
 }
 
