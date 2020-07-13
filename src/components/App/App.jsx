@@ -1,28 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import PropTypes from 'prop-types';
 import styles from './App.module.css';
 import NavBar from '../NavBar/NavBar';
-import InfoContainer from '../Info';
+import Info from '../Info/Info';
 import MapBoxContainer from '../MapBox';
+import ModalContainer from '../Modal';
+import Spinner from '../Spinner/Spinner';
 
-function App({ backgroundImageURL }) {
-  const style = { backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.35) 100%), url(${backgroundImageURL})` };
+function App({
+  backgroundImageURL, isModalOpen, currentWeather, currentDate, weeklyWeather, onAppLoad,
+}) {
+  useEffect(() => {
+    onAppLoad();
+  }, []);
+  const style = {backgroundImage: `linear-gradient(0deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.5) 100%), url(${backgroundImageURL})` };
   return (
-    <div className={styles.wrapper} style={style}>
-      <NavBar />
-      <InfoContainer />
-      <MapBoxContainer />
-    </div>
+    <>
+      {
+        (currentWeather && currentDate && weeklyWeather)
+          ? (
+            <div className={styles.wrapper} style={style}>
+              <NavBar />
+              <Info />
+              <MapBoxContainer />
+            </div>
+          )
+          : <Spinner />
+      }
+      {
+        isModalOpen ? <ModalContainer /> : null
+      }
+    </>
   );
 }
 
 App.propTypes = {
   backgroundImageURL: PropTypes.string,
+  isModalOpen: PropTypes.bool,
 };
 
 App.defaultProps = {
   backgroundImageURL: '',
+  isModalOpen: false,
 };
 
 export default hot(App);
