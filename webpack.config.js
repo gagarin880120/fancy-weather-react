@@ -38,6 +38,14 @@ module.exports = {
           name: '[path][name].[ext]',
         },
       },
+      {
+        test: /\.(png|jpg|jpeg)$/,
+        loader: 'file-loader',
+        options: {
+          context: path.resolve(__dirname, 'src'),
+          name: '[path][name].[ext]',
+        },
+      },
     ],
   },
   resolve: { extensions: ['.js', '.jsx'] },
