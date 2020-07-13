@@ -6,12 +6,9 @@ import { selectCurrentDate } from '../../redux/selectors';
 
 export function CurrentDateContainer({ currentDate }) {
   return (
-    currentDate
-      ? (
-        <CurrentDate
-          currentDate={currentDate}
-        />
-      ) : <div>Loading...</div>
+    <CurrentDate
+      currentDate={currentDate}
+    />
   );
 }
 
