@@ -64,6 +64,33 @@ function setCountryFlagURL(countryCode) {
   };
 }
 
+function setTemperatureScale(temperatureScale) {
+  return {
+    type: 'TEMPERATURE_SCALE',
+    temperatureScale,
+  };
+}
+
+function setQuery(query) {
+  return {
+    type: 'QUERY',
+    query,
+  };
+}
+
+function setMapZoom(mapZoom) {
+  return {
+    type: 'MAP_ZOOM',
+    mapZoom,
+  };
+}
+function setIsModalOpen(isModalOpen) {
+  return {
+    type: 'IS_MODAL_OPEN',
+    isModalOpen,
+  };
+}
+
 function getCurrentDate(lat, lng) {
   const API_KEY = 'ST1WDEJRNQDM';
   return (dispatch) => fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}`
@@ -75,12 +102,21 @@ function getCurrentDate(lat, lng) {
     .catch((e) => console.log(e));
 }
 
-function getWeather(lat, lon) {
+function getCurrentWeather(lat, lon, lang) {
   const API_KEY = 'cf236ef1f2e94b658f9c745520d1fe1a';
-  return (dispatch) => fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&days=8&lang=en&key=${API_KEY}`)
+  return (dispatch) => fetch(`https://api.weatherbit.io/v2.0/current?&lat=${lat}&lon=${lon}&lang=${lang}&key=${API_KEY}`)
     .then((res) => res.json())
     .then((data) => {
       dispatch(setCurrentWeather(data.data[0]));
+    })
+    .catch((e) => console.log(e));
+}
+
+function getWeeklyWeather(lat, lon, lang) {
+  const API_KEY = 'cf236ef1f2e94b658f9c745520d1fe1a';
+  return (dispatch) => fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&days=8&lang=${lang}&key=${API_KEY}`)
+    .then((res) => res.json())
+    .then((data) => {
       dispatch(setWeeklyWeather(data.data.slice(1)));
     })
     .catch((e) => console.log(e));
@@ -89,18 +125,27 @@ function getWeather(lat, lon) {
 function getBackgroundImageURL(lat, lon) {
   const API_KEY = 'c8090405b9c8b36dbc1e8a34495de0cf';
   const url = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&'
-  + `api_key=${API_KEY}&lat=${lat}&lon=${lon}&per_page=${20}&format=json&nojsoncallback=1&sort=interestingness-desc`;
+  + `api_key=${API_KEY}&lat=${lat}&lon=${lon}&per_page=${20}&format=json&nojsoncallback=1&sort=relevance`;
+  let imgURL = '';
   return (dispatch) => fetch(url)
     .then((res) => res.json())
     .then((data) => {
       const {
         farm, server, secret, id,
       } = data.photos.photo[Math.floor(Math.random() * data.photos.photo.length)];
-      dispatch(setBackgroundImageURL(
-        `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_c.jpg`,
-      ));
-    })
-    .catch((e) => console.log(e));
+      imgURL = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_c.jpg`;
+    }).then(() => fetch(imgURL)
+      .then((res) => (res.status === 410
+        ? dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'))
+        : dispatch(setBackgroundImageURL(imgURL))))
+      .catch((e) => {
+        console.log(e);
+        dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'));
+      }))
+    .catch((e) => {
+      console.log(e);
+      dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'));
+    });
 }
 
 function getDefaultAddress() {
@@ -108,12 +153,15 @@ function getDefaultAddress() {
   return (dispatch) => fetch(`https://ipinfo.io?token=${API_KEY}`)
     .then((res) => res.json())
     .then((data) => {
-      dispatch(setAddress(`${data.city}, ${convertCodeToCountryName(data.country, 'en')}`));
+      const address = `${data.city}, ${convertCodeToCountryName(data.country, 'en')}`;
+      dispatch(setAddress(address));
+      dispatch(setQuery(address));
       dispatch(setCountryFlagURL(data.country));
       const lat = data.loc.split(',')[0];
       const lon = data.loc.split(',')[1];
       dispatch(setLocation(Number(lat), Number(lon)));
-      dispatch(getWeather(lat, lon));
+      dispatch(getCurrentWeather(lat, lon, 'en'));
+      dispatch(getWeeklyWeather(lat, lon, 'en'));
       dispatch(getCurrentDate(lat, lon));
       dispatch(setCurrentDateInterval(
         setInterval(() => dispatch(getCurrentDate(lat, lon)), 20000),
@@ -123,30 +171,40 @@ function getDefaultAddress() {
     .catch((e) => console.log(e));
 }
 
-function getAddressBySearch(query) {
+function getAddressBySearch(query, lang, translateOnly) {
   const API_KEY = 'b6f94f0170be41b3b46f023bd725de3d';
   return (dispatch) => fetch('https://api.opencagedata.com/geocode/v1/json?q='
-  + `${query}&key=${API_KEY}&language=en `)
+  + `${query}&key=${API_KEY}&language=${lang} `)
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data.results);
+      const { city } = data.results[0].components;
+      const country = convertCodeToCountryName(data.results[0].components['ISO_3166-1_alpha-2'], lang);
       const { lat } = data.results[0].geometry;
       const { lng } = data.results[0].geometry;
-      dispatch(setLocation(lat, lng));
-      const { city } = data.results[0].components;
-      const country = convertCodeToCountryName(data.results[0].components['ISO_3166-1_alpha-2'], 'en');
-      dispatch(setCountryFlagURL(data.results[0].components['ISO_3166-1_alpha-2']));
-      dispatch(setAddress(city ? `${city}, ${country}` : data.results[0].formatted));
-      dispatch(getWeather(lat, lng));
-      dispatch(getCurrentDate(lat, lng));
-      dispatch(setCurrentDateInterval(
-        setInterval(() => dispatch(getCurrentDate(lat, lng)), 20000),
-      ));
-      dispatch(getBackgroundImageURL(lat, lng));
+      if (translateOnly) {
+        dispatch(setAddress(city ? `${city}, ${country}` : data.results[0].formatted));
+        dispatch(getCurrentWeather(lat, lng, lang));
+        dispatch(getWeeklyWeather(lat, lng, lang));
+      } else {
+        dispatch(setCountryFlagURL(data.results[0].components['ISO_3166-1_alpha-2']));
+        dispatch(setAddress(city ? `${city}, ${country}` : data.results[0].formatted));
+        dispatch(setLocation(lat, lng));
+        dispatch(getCurrentWeather(lat, lng, lang));
+        dispatch(getWeeklyWeather(lat, lng, lang));
+        dispatch(getCurrentDate(lat, lng));
+        dispatch(setCurrentDateInterval(
+          setInterval(() => dispatch(getCurrentDate(lat, lng)), 20000),
+        ));
+        dispatch(getBackgroundImageURL(lat, lng));
+      }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e);
+      dispatch(setIsModalOpen(true));
+    });
 }
 
 export {
   setAddress, setCurrentWeather, getDefaultAddress, setLanguage, getAddressBySearch,
+  setTemperatureScale, setQuery, setMapZoom, setIsModalOpen,
 };
