@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styles from './App.module.css';
 import NavBar from '../NavBar/NavBar';
 import Info from '../Info/Info';
-import MapBoxContainer from '../MapBox';
 import ModalContainer from '../Modal';
 import Spinner from '../Spinner/Spinner';
 
@@ -23,7 +22,6 @@ function App({
             <div className={styles.wrapper} style={style}>
               <NavBar />
               <Info />
-              <MapBoxContainer />
             </div>
           )
           : <Spinner />

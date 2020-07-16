@@ -16,6 +16,9 @@ export default function MapBox({ lon, lat, mapZoom, onMapMove }) {
     map.on('move', () => {
       onMapMove(map.getZoom().toFixed(2));
     });
+    const marker = new mapboxgl.Marker({color: 'rgb(213, 16, 231)', scale: 1.5});
+    marker.setLngLat([lon, lat]);
+    marker.addTo(map);
   }, [mapContainer, lon, lat]);
   return (
     <div ref={mapContainer} className={styles.container} />

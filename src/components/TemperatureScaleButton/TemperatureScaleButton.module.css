@@ -1,0 +1,17 @@
+.button {
+  background: transparent;
+  color: #fff;
+  outline: 0;
+  margin-right: 5px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-size: 22px;
+  font-family: Nunito;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.button:active {
+  transform: translateY(2px);
+}

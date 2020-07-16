@@ -12,8 +12,8 @@ export default function WeeklyWeatherCard({ weekday, temp, icon }) {
       </span>
       <div className={styles.temperature}>
         {temp}
+        <Icon color="#fff" size={64} />
       </div>
-      <Icon color="#fff" size={64} />
     </div>
   );
 }

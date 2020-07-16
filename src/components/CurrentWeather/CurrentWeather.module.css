@@ -1,5 +1,40 @@
-.temperature {
+.wrapper {
   display: flex;
-  font-size: 168px;
+}
+
+.temperature {
+  position: relative;
+  font-size: 196px;
   font-weight: bold;
+}
+
+.details {
+  margin-top: 130px;
+  font-size: 18px;
+}
+
+.icon {
+  position: absolute;
+  top: -20px;
+  right: -170px;
+}
+
+@media screen and (max-width: 460px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .temperature {
+    font-size: 120px;
+  }
+
+  .icon {
+    top: -40px;
+    left: 145px;
+    width: 100px;
+  }
+
+  .details {
+    margin: 10px 0 20px;
+  }
 }

@@ -1,0 +1,21 @@
+.select {
+  background-color: transparent;
+  color: #fff;
+  outline: 0;
+  height: 35px;
+  cursor: pointer;
+  font-size: 22px;
+  font-family: Nunito;
+  font-weight: bold;
+  border-radius: 5px;
+  text-transform: uppercase;
+  border: 2px solid #fff;
+}
+
+.option {
+  color:#000;
+}
+
+.select:active {
+  transform: translateY(2px);
+}

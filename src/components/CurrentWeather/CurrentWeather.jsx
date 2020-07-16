@@ -9,16 +9,18 @@ export default function CurrentWeather({ currentWeather }) {
     <div className={styles.wrapper}>
       <div className={styles.temperature}>
         {currentWeather.temp}
-        <Icon color="#fff" size={200} />
+        <Icon color="#fff" size={170} className={styles.icon} />
       </div>
-      <div className={styles.summary}>
-        {currentWeather.weather.description}
-      </div>
-      <div className={styles.humidity}>
-        {currentWeather.rh}
-      </div>
-      <div className={styles.wind}>
-        {currentWeather.wind_spd}
+      <div className={styles.details}>
+        <div className={styles.summary}>
+          {currentWeather.weather.description}
+        </div>
+        <div className={styles.humidity}>
+          {currentWeather.rh}
+        </div>
+        <div className={styles.wind}>
+          {currentWeather.wind_spd}
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,13 @@
+.wrapper {
+  margin-right: 10px;
+}
+
+.weekday {
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.temperature {
+  margin-top: 5px;
+  font-size: 54px;
+}

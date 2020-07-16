@@ -5,10 +5,10 @@ import styles from './Address.module.css';
 export default function Address({ address, countryFlagURL }) {
   return (
     <div className={styles.wrapper}>
+      <img src={countryFlagURL} alt="flag" className={styles.flag} />
       <h2 className={styles.address}>
         {address}
       </h2>
-      <img src={countryFlagURL} alt="flag" className={styles.flag} />
     </div>
   );
 }

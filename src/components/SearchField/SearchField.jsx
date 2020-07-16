@@ -4,10 +4,11 @@ import styles from './SearchField.module.css';
 
 export default function SearchField({ onSearch, currentDateInterval, language }) {
   const [query, setQuery] = useState('');
+  const [isVoiceSearchOn, setIsVoiceSearchOn] = useState(false);
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
   return (
-    <div className={styles.wrapper}>
+    <div>
       <input
         type="search"
         name="search"
@@ -26,29 +27,34 @@ export default function SearchField({ onSearch, currentDateInterval, language })
       />
       <button
         type="button"
+        className={styles.button}
         onClick={() => {
           recognition.start();
+          setIsVoiceSearchOn(true);
           recognition.onresult = (e) => {
             const transcript = Array.from(e.results)
               .map((result) => result[0])
               .map((result) => result.transcript)
               .join('');
             setQuery(transcript);
+            setIsVoiceSearchOn(false);
             onSearch(transcript, currentDateInterval, language);
           };
         }}
       >
-        Voice
+        <i className="fas fa-microphone" />
       </button>
+      <div className={styles.pulsatingCircle} style={{ display: isVoiceSearchOn ? 'block' : 'none' }} />
       <button
         type="button"
+        className={styles.button}
         onClick={() => {
           if (query) {
             onSearch(query, currentDateInterval, language);
           }
         }}
       >
-        Search
+        <i className="fas fa-search" />
       </button>
     </div>
   );

@@ -171,7 +171,7 @@ function getDefaultAddress() {
     .catch((e) => console.log(e));
 }
 
-function getAddressBySearch(query, lang, translateOnly) {
+function getAddressBySearch(query, lang, translateOnly, interval) {
   const API_KEY = 'b6f94f0170be41b3b46f023bd725de3d';
   return (dispatch) => fetch('https://api.opencagedata.com/geocode/v1/json?q='
   + `${query}&key=${API_KEY}&language=${lang} `)
@@ -186,6 +186,7 @@ function getAddressBySearch(query, lang, translateOnly) {
         dispatch(getCurrentWeather(lat, lng, lang));
         dispatch(getWeeklyWeather(lat, lng, lang));
       } else {
+        clearInterval(interval);
         dispatch(setCountryFlagURL(data.results[0].components['ISO_3166-1_alpha-2']));
         dispatch(setAddress(city ? `${city}, ${country}` : data.results[0].formatted));
         dispatch(setLocation(lat, lng));

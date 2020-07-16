@@ -23,8 +23,7 @@ export const mapStateToProps = (state) => ({
 export const mapDispatchToProps = (dispatch) => ({
   onSearch(query, interval, lang) {
     dispatch(setQuery(query));
-    clearInterval(interval);
-    dispatch(getAddressBySearch(query, lang));
+    dispatch(getAddressBySearch(query, lang, false, interval));
   },
 });
 

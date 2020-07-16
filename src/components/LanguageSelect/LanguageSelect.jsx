@@ -9,8 +9,8 @@ export default function LanguageSelect({ onLanguageChange, query }) {
       className={styles.select}
       onChange={(e) => onLanguageChange(e.target.value, query)}
     >
-      <option value="en">en</option>
-      <option value="ru">ru</option>
+      <option className={styles.option} value="en">en</option>
+      <option className={styles.option} value="ru">ru</option>
     </select>
   );
 }

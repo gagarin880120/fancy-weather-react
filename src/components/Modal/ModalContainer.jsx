@@ -2,13 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setIsModalOpen, getDefaultAddress } from '../../redux/actions';
+import { selectLanguage } from '../../redux/selectors';
 import Modal from './Modal';
 
-export function ModalContainer({ onClose }) {
+export function ModalContainer({ onClose, language }) {
   return (
-    <Modal onClose={onClose} />
+    <Modal
+      onClose={onClose}
+      language={language}
+    />
   );
 }
+
+export const mapStateToProps = (state) => ({
+  language: selectLanguage(state),
+})
 
 export const mapDispatchToProps = (dispatch) => ({
   onClose() {
@@ -19,10 +27,12 @@ export const mapDispatchToProps = (dispatch) => ({
 
 ModalContainer.propTypes = {
   onClose: PropTypes.func,
+  language: PropTypes.string,
 };
 
 ModalContainer.defaultProps = {
   onClose: null,
+  language: '',
 };
 
-export default connect(null, mapDispatchToProps)(ModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalContainer);

@@ -1,5 +1,10 @@
 .wrapper {
-  display: flex;
+  /* width: 70%; */
+}
+
+.address {
+  font-size: 42px;
+  font-weight: bold;
 }
 
 .flag {

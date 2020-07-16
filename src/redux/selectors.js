@@ -32,8 +32,16 @@ const selectCurrentWeather = (state) => {
   if (state.currentWeather) {
     return {
       ...state.currentWeather,
-      rh: `${Math.round(state.currentWeather.rh)}%`,
-      wind_spd: `${Math.round(state.currentWeather.wind_spd)}${state.language === 'en' ? 'm/s' : 'м/с'}`,
+      rh: `${
+        state.language === 'en' ? 'Humidity: ' : 'Влажность: '
+      }${
+        Math.round(state.currentWeather.rh)
+      }%`,
+      wind_spd: `${
+        state.language === 'en' ? 'Wind: ' : 'Ветер: '
+      }${
+        Math.round(state.currentWeather.wind_spd)
+      }${state.language === 'en' ? 'm/s' : 'м/с'}`,
       temp: state.temperatureScale === 'celsius' ? Math.round(state.currentWeather.temp) : convertCelsiusToFahrenheit(state.currentWeather.temp),
       icon: convertCodeToName(
         state.currentWeather.weather.icon.slice(-1) + state.currentWeather.weather.code,
@@ -51,9 +59,10 @@ const selectCountryFlagURL = (state) => state.countryFlagURL;
 const selectQuery = (state) => state.query;
 const selectMapZoom = (state) => state.mapZoom;
 const selectIsModalOpen = (state) => state.isModalOpen;
+const selectTemperatureScale = (state) => state.temperatureScale;
 
 export {
   selectAddress, selectCurrentWeather, selectLanguage, selectLatitude, selectLongitude,
   selectCurrentDate, selectWeeklyWeather, selectBackgroundImageURL, selectCurrentDateInterval,
-  selectCountryFlagURL, selectQuery, selectMapZoom, selectIsModalOpen,
+  selectCountryFlagURL, selectQuery, selectMapZoom, selectIsModalOpen, selectTemperatureScale,
 };

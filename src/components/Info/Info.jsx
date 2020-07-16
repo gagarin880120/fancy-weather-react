@@ -4,13 +4,19 @@ import AddressContainer from '../Address';
 import CurrentDateContainer from '../CurrentDate';
 import CurrentWeatherContainer from '../CurrentWeather';
 import WeeklyWeatherContainer from '../WeeklyWeather';
+import MapBoxContainer from '../MapBox';
 
 export default function Info() {
   return (
     <div className={styles.wrapper}>
-      <AddressContainer />
-      <CurrentDateContainer />
-      <CurrentWeatherContainer />
+      <div className={styles.currentInfoMapContainer}>
+        <div className={styles.currentInfoContainer}>
+          <AddressContainer />
+          <CurrentDateContainer />
+          <CurrentWeatherContainer />
+        </div>
+        <MapBoxContainer />
+      </div>
       <WeeklyWeatherContainer />
     </div>
   );
