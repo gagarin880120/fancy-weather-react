@@ -121,32 +121,36 @@ function getWeeklyWeather(lat, lon, lang) {
     })
     .catch((e) => console.log(e));
 }
+function getBackgroundImageURL(imgURL) {
+  return (dispatch) => fetch(imgURL)
+    .then((res) => (res.status === 410
+      ? dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'))
+      : dispatch(setBackgroundImageURL(imgURL))))
+    .catch((e) => {
+      console.log(e);
+      dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'));
+    });
+}
 
-function getBackgroundImageURL(lat, lon) {
+function getFlickrImageURL(query) {
   const API_KEY = 'c8090405b9c8b36dbc1e8a34495de0cf';
   const url = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&'
-  + `api_key=${API_KEY}&lat=${lat}&lon=${lon}&per_page=${20}&format=json&nojsoncallback=1&sort=relevance`;
-  let imgURL = '';
+  + `api_key=${API_KEY}&tags=${query}&per_page=${20}&format=json&nojsoncallback=1&sort=relevance`;
   return (dispatch) => fetch(url)
     .then((res) => res.json())
     .then((data) => {
       const {
         farm, server, secret, id,
       } = data.photos.photo[Math.floor(Math.random() * data.photos.photo.length)];
-      imgURL = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_c.jpg`;
-    }).then(() => fetch(imgURL)
-      .then((res) => (res.status === 410
-        ? dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'))
-        : dispatch(setBackgroundImageURL(imgURL))))
-      .catch((e) => {
-        console.log(e);
-        dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'));
-      }))
+      dispatch(getBackgroundImageURL(`https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_c.jpg`));
+    })
     .catch((e) => {
       console.log(e);
       dispatch(setBackgroundImageURL('https://i.ibb.co/yYjFnrV/earth.png'));
     });
 }
+
+const intervalCb = (lat, lng) => (dispatch) => dispatch(getCurrentDate(lat, lng));
 
 function getDefaultAddress() {
   const API_KEY = '60e8ad51f55486';
@@ -164,9 +168,9 @@ function getDefaultAddress() {
       dispatch(getWeeklyWeather(lat, lon, 'en'));
       dispatch(getCurrentDate(lat, lon));
       dispatch(setCurrentDateInterval(
-        setInterval(() => dispatch(getCurrentDate(lat, lon)), 20000),
+        setInterval(intervalCb, 20000, lat, lon),
       ));
-      dispatch(getBackgroundImageURL(lat, lon));
+      dispatch(getFlickrImageURL(address));
     })
     .catch((e) => console.log(e));
 }
@@ -181,22 +185,23 @@ function getAddressBySearch(query, lang, translateOnly, interval) {
       const country = convertCodeToCountryName(data.results[0].components['ISO_3166-1_alpha-2'], lang);
       const { lat } = data.results[0].geometry;
       const { lng } = data.results[0].geometry;
+      const address = city ? `${city}, ${country}` : data.results[0].formatted;
       if (translateOnly) {
-        dispatch(setAddress(city ? `${city}, ${country}` : data.results[0].formatted));
+        dispatch(setAddress(address));
         dispatch(getCurrentWeather(lat, lng, lang));
         dispatch(getWeeklyWeather(lat, lng, lang));
       } else {
         clearInterval(interval);
+        dispatch(setAddress(address));
         dispatch(setCountryFlagURL(data.results[0].components['ISO_3166-1_alpha-2']));
-        dispatch(setAddress(city ? `${city}, ${country}` : data.results[0].formatted));
         dispatch(setLocation(lat, lng));
         dispatch(getCurrentWeather(lat, lng, lang));
         dispatch(getWeeklyWeather(lat, lng, lang));
         dispatch(getCurrentDate(lat, lng));
         dispatch(setCurrentDateInterval(
-          setInterval(() => dispatch(getCurrentDate(lat, lng)), 20000),
+          setInterval(intervalCb, 20000, lat, lng),
         ));
-        dispatch(getBackgroundImageURL(lat, lng));
+        dispatch(getFlickrImageURL(address));
       }
     })
     .catch((e) => {
@@ -206,6 +211,9 @@ function getAddressBySearch(query, lang, translateOnly, interval) {
 }
 
 export {
-  setAddress, setCurrentWeather, getDefaultAddress, setLanguage, getAddressBySearch,
-  setTemperatureScale, setQuery, setMapZoom, setIsModalOpen,
+  setLanguage, setAddress, setLocation, setCurrentDate, setCurrentDateInterval,
+  setCurrentWeather, setWeeklyWeather, setBackgroundImageURL, setCountryFlagURL,
+  setTemperatureScale, setQuery, setMapZoom, setIsModalOpen, getCurrentDate,
+  getCurrentWeather, getWeeklyWeather, getBackgroundImageURL, getFlickrImageURL, getDefaultAddress,
+  getAddressBySearch, intervalCb,
 };
