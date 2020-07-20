@@ -14,20 +14,6 @@ const selectCurrentDate = (state) => {
   return null;
 };
 
-const selectWeeklyWeather = (state) => {
-  if (state.weeklyWeather) {
-    return state.weeklyWeather.map((v) => ({
-      ...v,
-      temp: state.temperatureScale === 'celsius' ? Math.round(v.temp) : convertCelsiusToFahrenheit(v.temp),
-      weekday: new Date(v.datetime).toLocaleDateString(state.language === 'en' ? 'en-GB' : 'ru', { weekday: 'long' }),
-      icon: convertCodeToName(
-        v.weather.icon.slice(-1) + v.weather.code,
-      ),
-    }));
-  }
-  return null;
-};
-
 const selectCurrentWeather = (state) => {
   if (state.currentWeather) {
     return {
@@ -50,6 +36,21 @@ const selectCurrentWeather = (state) => {
   }
   return null;
 };
+
+const selectWeeklyWeather = (state) => {
+  if (state.weeklyWeather) {
+    return state.weeklyWeather.map((v) => ({
+      ...v,
+      temp: state.temperatureScale === 'celsius' ? Math.round(v.temp) : convertCelsiusToFahrenheit(v.temp),
+      weekday: new Date(v.datetime).toLocaleDateString(state.language === 'en' ? 'en-GB' : 'ru', { weekday: 'long' }),
+      icon: convertCodeToName(
+        v.weather.icon.slice(-1) + v.weather.code,
+      ),
+    }));
+  }
+  return null;
+};
+
 
 const selectLatitude = (state) => state.latitude;
 const selectLongitude = (state) => state.longitude;
