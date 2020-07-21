@@ -93,7 +93,7 @@ function setIsModalOpen(isModalOpen) {
 
 function getCurrentDate(lat, lng) {
   const API_KEY = 'ST1WDEJRNQDM';
-  return (dispatch) => fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}`
+  return (dispatch) => fetch(`https://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}`
   + `&format=json&by=position&lat=${lat}&lng=${lng}`)
     .then((res) => res.json())
     .then((data) => {
