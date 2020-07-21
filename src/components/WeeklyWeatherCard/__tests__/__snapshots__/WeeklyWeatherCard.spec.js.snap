@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeeklyWeatherCard component should render without crashing 1`] = `
+<div
+  className="wrapper"
+>
+  <span
+    className="weekday"
+  >
+    Tuesday
+  </span>
+  <div
+    className="temperature"
+  >
+    20
+    <mockConstructor
+      color="#fff"
+      size={64}
+    />
+  </div>
+</div>
+`;

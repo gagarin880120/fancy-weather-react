@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchFieldContainer component should render without crashing 1`] = `
+<SearchField
+  currentDateInterval={0}
+  language="en"
+  onSearch={null}
+/>
+`;

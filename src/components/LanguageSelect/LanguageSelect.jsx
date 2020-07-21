@@ -21,6 +21,6 @@ LanguageSelect.propTypes = {
 };
 
 LanguageSelect.defaultProps = {
-  onLanguageChange: () => {},
+  onLanguageChange: null,
   query: '',
 };

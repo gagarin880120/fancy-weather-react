@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapBoxContainer component should render without crashing 1`] = `
+<MapBox
+  lat={0}
+  lon={0}
+  mapZoom="8"
+  onMapMove={null}
+/>
+`;

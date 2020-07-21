@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Address component should render without crashing 1`] = `
+<div
+  className="wrapper"
+>
+  <img
+    alt="flag"
+    className="flag"
+    src=""
+  />
+  <h2
+    className="address"
+  >
+    
+  </h2>
+</div>
+`;

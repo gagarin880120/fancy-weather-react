@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentWeather component should render without crashing 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="temperature"
+  >
+    <mockConstructor
+      className="icon"
+      color="#fff"
+      size={170}
+    />
+  </div>
+  <div
+    className="details"
+  >
+    <div
+      className="summary"
+    >
+      Sunny weather
+    </div>
+    <div
+      className="humidity"
+    />
+    <div
+      className="wind"
+    />
+  </div>
+</div>
+`;

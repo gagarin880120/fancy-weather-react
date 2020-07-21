@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal component should render without crashing 1`] = `
+<button
+  className="wrapper"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
+>
+  <span
+    className="message"
+  >
+    Город, который вы ищете, не существует
+  </span>
+</button>
+`;

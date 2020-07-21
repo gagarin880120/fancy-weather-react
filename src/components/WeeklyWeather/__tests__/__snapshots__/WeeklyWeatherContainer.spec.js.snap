@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeeklyWeatherContainer component should render without crashing 1`] = `
+<WeeklyWeather
+  weeklyWeather={Array []}
+/>
+`;

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchField component should render without crashing 1`] = `
+<div>
+  <input
+    className="searchInput"
+    name="search"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    type="search"
+    value=""
+  />
+  <button
+    className="button"
+    id="voiceButton"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fas fa-microphone"
+    />
+  </button>
+  <div
+    className="pulsatingCircle"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  />
+  <button
+    className="button"
+    id="searchButton"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fas fa-search"
+    />
+  </button>
+</div>
+`;

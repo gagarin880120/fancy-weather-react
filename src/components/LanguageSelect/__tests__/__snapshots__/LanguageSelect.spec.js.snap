@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageSelect component should render without crashing 1`] = `
+<select
+  className="select"
+  name="language"
+  onChange={[Function]}
+>
+  <option
+    className="option"
+    value="en"
+  >
+    en
+  </option>
+  <option
+    className="option"
+    value="ru"
+  >
+    ru
+  </option>
+</select>
+`;

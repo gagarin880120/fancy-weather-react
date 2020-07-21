@@ -31,7 +31,7 @@ LanguageSelectContainer.propTypes = {
 };
 
 LanguageSelectContainer.defaultProps = {
-  onLanguageChange: () => {},
+  onLanguageChange: null,
   query: '',
 };
 

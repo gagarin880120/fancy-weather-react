@@ -28,6 +28,7 @@ export default function SearchField({ onSearch, currentDateInterval, language })
       <button
         type="button"
         className={styles.button}
+        id="voiceButton"
         onClick={() => {
           recognition.start();
           setIsVoiceSearchOn(true);
@@ -47,6 +48,7 @@ export default function SearchField({ onSearch, currentDateInterval, language })
       <div className={styles.pulsatingCircle} style={{ display: isVoiceSearchOn ? 'block' : 'none' }} />
       <button
         type="button"
+        id="searchButton"
         className={styles.button}
         onClick={() => {
           if (query) {
