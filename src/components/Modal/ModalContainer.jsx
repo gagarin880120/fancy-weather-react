@@ -16,7 +16,7 @@ export function ModalContainer({ onClose, language }) {
 
 export const mapStateToProps = (state) => ({
   language: selectLanguage(state),
-})
+});
 
 export const mapDispatchToProps = (dispatch) => ({
   onClose() {

@@ -7,7 +7,7 @@ export default function TemperatureScaleButton({ scale, onScaleButtonClick, temp
     <button
       type="button"
       className={styles.button}
-      style={{border: scale === temperatureScale ? '2px solid #fff' : '2px solid transparent' }}
+      style={{ border: scale === temperatureScale ? '2px solid #fff' : '2px solid transparent' }}
       onClick={() => onScaleButtonClick(scale)}
     >
       {scale === 'celsius' ? 'C' : 'F'}
@@ -18,9 +18,11 @@ export default function TemperatureScaleButton({ scale, onScaleButtonClick, temp
 TemperatureScaleButton.propTypes = {
   scale: PropTypes.string,
   onScaleButtonClick: PropTypes.func,
+  temperatureScale: PropTypes.string,
 };
 
 TemperatureScaleButton.defaultProps = {
   scale: '',
   onScaleButtonClick: null,
+  temperatureScale: '',
 };

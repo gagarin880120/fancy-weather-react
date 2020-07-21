@@ -5,7 +5,7 @@ import TemperatureScaleButton from './TemperatureScaleButton';
 import { selectTemperatureScale } from '../../redux/selectors';
 import { setTemperatureScale } from '../../redux/actions';
 
-export function TemperatureScaleButtonContainer({ onScaleButtonClick, scale, temperatureScale }) {
+export function TemperatureScaleButtonContainer({ scale, onScaleButtonClick, temperatureScale }) {
   return (
     <TemperatureScaleButton
       onScaleButtonClick={onScaleButtonClick}
@@ -26,11 +26,13 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 TemperatureScaleButtonContainer.propTypes = {
+  scale: PropTypes.string,
   onScaleButtonClick: PropTypes.func,
   temperatureScale: PropTypes.string,
 };
 
 TemperatureScaleButtonContainer.defaultProps = {
+  scale: '',
   onScaleButtonClick: null,
   temperatureScale: '',
 };

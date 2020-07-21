@@ -12,7 +12,7 @@ export function SearchFieldContainer({ onSearch, currentDateInterval, language }
       currentDateInterval={currentDateInterval}
       language={language}
     />
-  )
+  );
 }
 
 export const mapStateToProps = (state) => ({
@@ -31,12 +31,12 @@ SearchFieldContainer.propTypes = {
   onSearch: PropTypes.func,
   currentDateInterval: PropTypes.number,
   language: PropTypes.string,
-}
+};
 
 SearchFieldContainer.defaultProps = {
   onSearch: null,
   currentDateInterval: 0,
   language: 'en',
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFieldContainer);

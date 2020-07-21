@@ -5,7 +5,9 @@ import MapBox from './MapBox';
 import { selectLatitude, selectLongitude, selectMapZoom } from '../../redux/selectors';
 import { setMapZoom } from '../../redux/actions';
 
-export function MapBoxContainer({ lon, lat, mapZoom, onMapMove }) {
+export function MapBoxContainer({
+  lon, lat, mapZoom, onMapMove,
+}) {
   return (
     <MapBox
       lon={lon}

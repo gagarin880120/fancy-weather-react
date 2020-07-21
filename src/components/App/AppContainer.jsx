@@ -9,7 +9,7 @@ import {
 import { getDefaultAddress } from '../../redux/actions';
 
 export function AppContainer({
-  backgroundImageURL, isModalOpen, currentWeather, currentDate, weeklyWeather, onAppLoad
+  backgroundImageURL, isModalOpen, currentWeather, currentDate, weeklyWeather, onAppLoad,
 }) {
   return (
     <App
@@ -30,6 +30,7 @@ export const mapStateToProps = (state) => ({
   currentDate: selectCurrentDate(state),
   weeklyWeather: selectWeeklyWeather(state),
 });
+
 export const mapDispatchToProps = (dispatch) => ({
   onAppLoad() {
     dispatch(getDefaultAddress());
@@ -39,11 +40,19 @@ export const mapDispatchToProps = (dispatch) => ({
 AppContainer.propTypes = {
   backgroundImageURL: PropTypes.string,
   isModalOpen: PropTypes.bool,
+  currentWeather: PropTypes.instanceOf(Object),
+  currentDate: PropTypes.string,
+  weeklyWeather: PropTypes.instanceOf(Array),
+  onAppLoad: PropTypes.func,
 };
 
 AppContainer.defaultProps = {
   backgroundImageURL: '',
   isModalOpen: false,
+  currentWeather: {},
+  currentDate: '',
+  weeklyWeather: [],
+  onAppLoad: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

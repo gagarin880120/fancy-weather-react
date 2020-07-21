@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import mapboxgl from 'mapbox-gl';
 import styles from './MapBox.module.css';
 
-export default function MapBox({ lon, lat, mapZoom, onMapMove }) {
+export default function MapBox({
+  lon, lat, mapZoom, onMapMove,
+}) {
   const mapContainer = useRef();
   mapboxgl.accessToken = 'pk.eyJ1IjoiZ2FnYXJpbjg4MDEyMCIsImEiOiJjazNicHc1NW4wOHFvM251aXg3YzlheDFmIn0.C2XPJXYAzS1e0OjVNFC-NQ';
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function MapBox({ lon, lat, mapZoom, onMapMove }) {
     map.on('move', () => {
       onMapMove(map.getZoom().toFixed(2));
     });
-    const marker = new mapboxgl.Marker({color: 'rgb(213, 16, 231)', scale: 1.5});
+    const marker = new mapboxgl.Marker({ color: 'rgb(213, 16, 231)', scale: 1.5 });
     marker.setLngLat([lon, lat]);
     marker.addTo(map);
   }, [mapContainer, lon, lat]);

@@ -13,7 +13,7 @@ function App({
   useEffect(() => {
     onAppLoad();
   }, []);
-  const style = {backgroundImage: `linear-gradient(0deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.5) 100%), url(${backgroundImageURL})` };
+  const style = { backgroundImage: `linear-gradient(0deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.5) 100%), url(${backgroundImageURL})` };
   return (
     <>
       {
@@ -36,11 +36,19 @@ function App({
 App.propTypes = {
   backgroundImageURL: PropTypes.string,
   isModalOpen: PropTypes.bool,
+  currentWeather: PropTypes.instanceOf(Object),
+  currentDate: PropTypes.string,
+  weeklyWeather: PropTypes.instanceOf(Array),
+  onAppLoad: PropTypes.func,
 };
 
 App.defaultProps = {
   backgroundImageURL: '',
   isModalOpen: false,
+  currentWeather: {},
+  currentDate: '',
+  weeklyWeather: [],
+  onAppLoad: null,
 };
 
 export default hot(App);

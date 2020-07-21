@@ -51,7 +51,6 @@ const selectWeeklyWeather = (state) => {
   return null;
 };
 
-
 const selectLatitude = (state) => state.latitude;
 const selectLongitude = (state) => state.longitude;
 const selectBackgroundImageURL = (state) => state.backgroundImageURL;
